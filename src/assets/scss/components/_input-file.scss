@@ -1,0 +1,21 @@
+.input-file {
+  &__label {
+    border: 1px solid $color-white;
+    display: inline-block;
+    cursor: pointer;
+    padding: 0.7rem;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: $color-grey;
+    }
+
+    &:active {
+      transform: translateY(0.3rem);
+    }
+  }
+
+  &__input {
+    display: none;
+  }
+}
