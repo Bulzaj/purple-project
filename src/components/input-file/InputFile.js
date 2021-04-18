@@ -1,5 +1,7 @@
 import React from "react";
-import documentParser from "../../util/documentParser";
+import documentParser, {
+  undefinedDrawingTracker,
+} from "../../util/documentParser";
 
 const InputFile = () => {
   const handleOnChange = (e) => {
@@ -9,8 +11,11 @@ const InputFile = () => {
       const parser = new DOMParser();
       const xml = fileReader.result;
       const document = parser.parseFromString(xml, "text/xml");
-      // Place what to do
-      console.log(documentParser(document));
+      const project = documentParser(document);
+      const drawing = project.pipeNetworks[0].drawing;
+      undefinedDrawingTracker(drawing, (item) => {
+        throw new Error("One of drawing items is not parse correctly", item);
+      });
     };
     fileReader.readAsText(file);
   };
