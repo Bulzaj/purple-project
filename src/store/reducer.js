@@ -1,1 +1,0 @@
-const reducer = (state, act) => {};
