@@ -2,3 +2,8 @@
   background-color: $color-grey-light;
   color: $color-white;
 }
+
+@mixin background-grey {
+  background-color: $color-grey;
+  color: $color-white;
+}

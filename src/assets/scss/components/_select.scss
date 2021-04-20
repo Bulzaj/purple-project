@@ -1,0 +1,29 @@
+.select {
+  width: 100%;
+  padding: 1rem 1.3rem;
+  font-family: inherit;
+  font-size: 1.3rem;
+  color: $color-white;
+  background-color: $color-grey;
+  border: none;
+  border-bottom: 1px solid $color-white;
+  transition: all 0.3s;
+
+  &__label {
+    font-family: inherit;
+    font-size: 1.3rem;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &:focus,
+  &:hover {
+    outline: none;
+    color: $color-blue;
+    border-color: $color-blue;
+    box-shadow: 0 0.2rem 0rem rgba($color-blue, 0.3);
+  }
+}

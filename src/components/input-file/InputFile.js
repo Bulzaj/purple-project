@@ -1,11 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 import { loadProject } from "../../store/actions";
 import documentParser, {
   undefinedDrawingTracker,
 } from "../../util/documentParser";
 
 const InputFile = () => {
+  const history = useHistory();
+
   const dispatch = useDispatch();
   const handleOnChange = (e) => {
     const file = e.target.files[0];
@@ -20,6 +23,7 @@ const InputFile = () => {
         throw new Error("One of drawing items is not parse correctly", item);
       });
       dispatch(loadProject(project));
+      history.push("/workspace");
     };
     fileReader.readAsText(file);
   };

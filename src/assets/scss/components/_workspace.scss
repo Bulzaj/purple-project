@@ -1,0 +1,22 @@
+.workspace {
+  height: 100%;
+
+  &__layout {
+    height: inherit;
+    display: grid;
+    grid-template-columns: [canvas-start] 1fr [canvas-end right-bar-start] 25rem [right-bar-end];
+    grid-template-rows: 1fr;
+  }
+
+  &__canvas {
+    grid-column-start: canvas-start;
+    grid-column-end: canvas-end;
+    grid-row: 1 / -1;
+  }
+
+  &__right-bar {
+    grid-column-start: right-bar-start;
+    grid-column-end: right-bar-end;
+    grid-row: 1 / -1;
+  }
+}
