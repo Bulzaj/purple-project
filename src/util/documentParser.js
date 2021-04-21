@@ -1,3 +1,5 @@
+import { v4 as uuidv4, v4 } from "uuid";
+
 export const itemTypes = {
   OUTER_CIRCLE: "OuterCircle",
   OUTER_LINE: "OuterLine",
@@ -126,6 +128,7 @@ const itemProto = (item) => {
     return getAttr(el, "Value");
   };
   return {
+    uuid: v4(),
     type: getTagName(item).split(".")[1],
     handle: getItemAttr("Handle"),
     layerId: +getItemAttr("Layer"),

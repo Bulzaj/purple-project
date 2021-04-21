@@ -2,12 +2,17 @@ import React from "react";
 import { itemTypes } from "../../util/documentParser";
 import Group from "../items/group/group";
 import Circle from "../items/circle/Circle";
+import Line from "../items/line/line";
+import Text from "../items/text/text";
 
 const itemCreator = (item) => {
-  console.log(item);
   switch (item.type) {
     case itemTypes.OUTER_CIRCLE:
-      return <Circle center={item.center} r={item.r} />;
+      return <Circle key={item.uuid} center={item.center} r={item.r} />;
+    case itemTypes.OUTER_LINE:
+      return <Line key={item.uuid} p1={item.p1} p2={item.p2} />;
+    case itemTypes.OUTER_TEXT:
+      return <Text key={item.uuid} start={item.start} text={item.text} />;
   }
 };
 
