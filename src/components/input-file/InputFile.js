@@ -18,10 +18,6 @@ const InputFile = () => {
       const xml = fileReader.result;
       const document = parser.parseFromString(xml, "text/xml");
       const project = documentParser(document);
-      const drawing = project.pipeNetworks[0].drawing;
-      undefinedDrawingTracker(drawing, (item) => {
-        throw new Error("One of drawing items is not parse correctly", item);
-      });
       dispatch(loadProject(project));
       history.push("/workspace");
     };

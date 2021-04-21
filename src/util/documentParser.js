@@ -19,25 +19,36 @@ const documentParser = (document) => {
 
 const PipeNetwork = (pipeNetwork) => {
   const getPipeNetworkAttr = (name) => getAttr(pipeNetwork, name);
-  const mapPipeNetworkCollection = (collection, fn) =>
-    mapCollection(getElements(pipeNetwork, collection), fn);
 
   return {
     name: getPipeNetworkAttr("name"),
     pipeNetType: getPipeNetworkAttr("pipeNetType"),
     desc: getPipeNetworkAttr("desc"),
     alignmentRef: getPipeNetworkAttr("alignmentRef"),
-    layers: mapPipeNetworkCollection("Layers", Layer),
-    drawing: mapPipeNetworkCollection("Drawing", Drawing),
+    layers: Layers(
+      getElements(pipeNetwork, "Layers")[0].children,
+      getElements(pipeNetwork, "Drawing")[0].children
+    ),
   };
+};
+
+const Layers = (layers, drawing) => {
+  const _layers = [...layers].map(Layer);
+  [...drawing].map((i) => {
+    const _item = Drawing(i);
+    const _layer = _layers.find((l) => l.id === _item.layerId);
+    _layer.items.push(_item);
+  });
+  return _layers;
 };
 
 const Layer = (layer) => {
   return {
-    id: getAttr(layer, "Numer"),
+    id: +getAttr(layer, "Numer"),
     name: getAttr(layer, "Nazwa"),
     color: getAttr(layer, "Color"),
     lineType: getAttr(layer, "RodzLinii"),
+    items: [],
   };
 };
 
@@ -117,7 +128,7 @@ const itemProto = (item) => {
   return {
     type: getTagName(item).split(".")[1],
     handle: getItemAttr("Handle"),
-    layerId: getItemAttr("Layer"),
+    layerId: +getItemAttr("Layer"),
   };
 };
 
@@ -138,12 +149,6 @@ const getValue = (node, tag) => getElements(node, tag)[0].innerHTML;
 const getTagName = (node) => node.tagName;
 
 // Probably for debugging purposes only
-export const undefinedDrawingTracker = (drawing, fn) => {
-  for (let item of drawing) {
-    item || fn(item);
-  }
-};
-
 const scanDrawingTags = (node) => {
   const drawing = mapCollection(
     getElements(node, "Drawing"),
