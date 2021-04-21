@@ -1,13 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 const Select = (props) => {
-  useEffect(() => {
-    console.log(props);
-  });
-
-  if (props.options.length > 0) {
-    console.log("options exists!");
-  }
   return (
     <div className="select__container">
       <label className="select__label">{props.name}</label>
