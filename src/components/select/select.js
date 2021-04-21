@@ -1,9 +1,9 @@
 import React from "react";
 
 const Select = (props) => {
-  return (
-    <div className="select__container">
-      <label className="select__label">{props.name}</label>
+  let select = null;
+  if (props.options) {
+    select = (
       <select className="select">
         {props.options.map((opt) => {
           return (
@@ -13,6 +13,12 @@ const Select = (props) => {
           );
         })}
       </select>
+    );
+  }
+  return (
+    <div className="select__container">
+      <label className="select__label">{props.name}</label>
+      {select}
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { LOAD_PROJECT } from "./actions";
 const initState = {
   isLoaded: false,
   projectName: "",
-  pipeNetworks: [],
+  pipeNetworks: Array.of({ layers: [] }),
 };
 
 const projectReducer = (state = initState, action) => {

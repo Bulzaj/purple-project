@@ -1,4 +1,4 @@
-const itemTypes = {
+export const itemTypes = {
   OUTER_CIRCLE: "OuterCircle",
   OUTER_LINE: "OuterLine",
   OUTER_POLYLINE: "OuterPolyLine",

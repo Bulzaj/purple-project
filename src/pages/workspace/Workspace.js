@@ -6,20 +6,22 @@ import BarItem from "../../components/bar/bar-item/bar-item";
 import Select from "../../components/select/select";
 
 const Workspace = () => {
-  const pipeNetworks = useSelector((state) => state.pipeNetworks);
+  const project = useSelector((state) => state);
 
   return (
     <div className="workspace">
       <div className="workspace__layout">
         <div className="workspace__canvas">
-          <Canvas />
+          <Canvas pipeNetwork={project.pipeNetworks[0]} />
         </div>
         <div className="workspace__bar">
           <Bar align="column">
             <BarItem>
               <Select
-                options={pipeNetworks.map((pn) => pn.name)}
-                name="Pipe Networks"
+                options={
+                  project.isLoaded && project.pipeNetworks.map((pn) => pn.name)
+                }
+                name="Pipe Networks:"
               />
             </BarItem>
           </Bar>
