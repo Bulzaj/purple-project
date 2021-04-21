@@ -18,11 +18,7 @@ const itemCreator = (item) => {
 
 const useDrawer = (pipeNetwork) => {
   return pipeNetwork.layers.map((layer) => {
-    return (
-      <Group key={layer.id}>
-        {layer.items.map((item) => itemCreator(item))}
-      </Group>
-    );
+    return <Group key={layer.id}>{layer.items.map(itemCreator)}</Group>;
   });
 };
 
