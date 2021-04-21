@@ -12,7 +12,14 @@ const itemCreator = (item) => {
     case itemTypes.OUTER_LINE:
       return <Line key={item.uuid} p1={item.p1} p2={item.p2} />;
     case itemTypes.OUTER_TEXT:
-      return <Text key={item.uuid} start={item.start} text={item.text} />;
+      return (
+        <Text
+          key={item.uuid}
+          start={item.start}
+          text={item.text}
+          dimmension={item.dimmension}
+        />
+      );
   }
 };
 
