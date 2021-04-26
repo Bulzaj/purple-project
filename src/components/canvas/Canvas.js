@@ -3,6 +3,7 @@ import { itemTypes } from "../../util/documentParser";
 import Group from "../items/group/group";
 import Circle from "../items/circle/Circle";
 import Line from "../items/line/line";
+import Polyline from "../items/polyline/polyline";
 import Text from "../items/text/text";
 
 const itemCreator = (item) => {
@@ -11,7 +12,16 @@ const itemCreator = (item) => {
       return <Circle key={item.uuid} center={item.center} r={item.r} />;
     case itemTypes.OUTER_LINE:
       return <Line key={item.uuid} p1={item.p1} p2={item.p2} />;
-    case itemTypes.OUTER_TEXT:
+    case itemTypes.OUTER_POLYLINE:
+      return (
+        <Polyline
+          key={item.uuid}
+          start={item.start}
+          vertex={item.vertex}
+          end={item.end}
+        />
+      );
+    case itemTypes.OUTER_TEXT || itemTypes.OUTER_TEXT_2:
       return (
         <Text
           key={item.uuid}
@@ -20,6 +30,8 @@ const itemCreator = (item) => {
           dimmension={item.dimmension}
         />
       );
+    case itemTypes.OUTER_TEXT_2:
+      return;
   }
 };
 
@@ -38,7 +50,7 @@ const Canvas = (props) => {
       // TODO: replace width and height with project dimmensions
       className="canvas"
     >
-      {items}
+      <Group>{items}</Group>
     </svg>
   );
 };
