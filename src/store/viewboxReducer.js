@@ -5,6 +5,10 @@ const initState = {
     x: 0,
     y: 0,
   },
+  dimmension: {
+    width: 800,
+    height: 800,
+  },
 };
 
 const viewboxReducer = (state = initState, action) => {

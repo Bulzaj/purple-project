@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { setViewboxPosition } from "../store/actions";
 
 // Manipulate viewBox position attribute state with mouse events
-// Get mouse position from svg element reference
 const usePanning = () => {
   // redux hooks
   const position = useSelector((state) => state.viewbox);
