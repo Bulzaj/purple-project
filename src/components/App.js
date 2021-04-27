@@ -11,8 +11,8 @@ import InputFile from "./input-file/InputFile";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
-  const isLoaded = useSelector((state) => state.isLoaded);
-  const projectName = useSelector((state) => state.projectName);
+  const isLoaded = useSelector((state) => state.project.isLoaded);
+  const projectName = useSelector((state) => state.project.projectName);
 
   let projectNameItem = null;
   if (isLoaded)

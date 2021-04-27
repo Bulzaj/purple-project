@@ -6,7 +6,7 @@ import BarItem from "../../components/bar/bar-item/bar-item";
 import Select from "../../components/select/select";
 
 const Workspace = () => {
-  const project = useSelector((state) => state);
+  const project = useSelector((state) => state.project);
 
   return (
     <div className="workspace">

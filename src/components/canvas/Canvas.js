@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+import usePanning from "../../hooks/usePanning";
+import useEventLisener from "../../hooks/useEventListener";
+
 import { itemTypes } from "../../util/documentParser";
 import Group from "../items/group/group";
 import Circle from "../items/circle/Circle";
@@ -32,6 +36,8 @@ const itemCreator = (item) => {
       );
     case itemTypes.OUTER_TEXT_2:
       return;
+    default:
+      return null;
   }
 };
 
@@ -41,16 +47,57 @@ const useDrawer = (pipeNetwork) => {
   });
 };
 
+const updateDimmensions = (prevState, elementRef) => {
+  return {
+    ...prevState,
+    width: elementRef.current.clientWidth,
+    height: elementRef.current.clientHeight,
+  };
+};
+
+const useElementDimmensions = (elementRef) => {
+  const [dimmensions, setDimmensions] = useState({ width: null, height: null });
+
+  useEffect(() => {
+    setDimmensions((prevState) => updateDimmensions(prevState, elementRef));
+  }, []);
+
+  const handler = (e) => {
+    setDimmensions((prevState) => updateDimmensions(prevState, elementRef));
+  };
+
+  useEventLisener("resize", handler);
+
+  return dimmensions;
+};
+
 const Canvas = (props) => {
+  const svgRef = useRef(null);
   const items = useDrawer(props.pipeNetwork);
+  const { width, height } = useElementDimmensions(svgRef);
+  const { position, handlers } = usePanning();
+
+  let viewBox = null;
+  if (position) viewBox = `${position.x} ${position.y} 1050 700`;
 
   return (
     <svg
-      // viewBox={`0 0 2000 2000`}
-      // TODO: replace width and height with project dimmensions
+      ref={svgRef}
+      viewBox={viewBox}
       className="canvas"
+      onMouseDown={handlers.handleMouseDown}
+      onMouseMove={handlers.handleMouseMove}
+      onMouseUp={handlers.handleMouseUp}
     >
-      <Group>{items}</Group>
+      <text x={10} y={24} fontSize={26}>
+        {position.x} {position.y} / {width}x{height}
+      </text>
+
+      <Group>
+        <circle cx={300} cy={300} r={100} />
+        <rect x={550} y={320} width={100} height={100} />
+        {items}
+      </Group>
     </svg>
   );
 };

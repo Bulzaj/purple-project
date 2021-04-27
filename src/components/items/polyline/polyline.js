@@ -7,4 +7,4 @@ const Polyline = (props) => {
   );
   return <polyline points={pointsStr} />;
 };
-export default Polyline;
+export default React.memo(Polyline);

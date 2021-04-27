@@ -1,4 +1,4 @@
-import { v4 as uuidv4, v4 } from "uuid";
+import { v4 } from "uuid";
 
 export const itemTypes = {
   OUTER_CIRCLE: "OuterCircle",
