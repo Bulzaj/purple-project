@@ -6,11 +6,11 @@ import { setViewboxPosition } from "../store/actions";
 // Manipulate viewBox position attribute state with mouse events
 const usePanning = () => {
   // redux hooks
-  const position = useSelector((state) => state.viewbox);
+  const position = useSelector((state) => state.viewbox.position);
   const dispatch = useDispatch();
 
   // referenco to previous position
-  const prevPositionRef = useRef(position.position);
+  const prevPositionRef = useRef(position);
 
   // mouse position on left btn down
   const [mouseStart, setMouseStart] = useState({ x: null, y: null });
@@ -50,11 +50,11 @@ const usePanning = () => {
   // update previous viewbox position on finish
   const handleMouseUp = () => {
     setIsPanning(false);
-    prevPositionRef.current = position.position;
+    prevPositionRef.current = position;
   };
 
   return {
-    ...position,
+    position,
     handlers: {
       handleMouseDown,
       handleMouseMove,
