@@ -5,15 +5,15 @@
 
   &__layout {
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: [app_start nav_start] 5rem [nav_end main_start] 1fr [main_end app_end];
   }
 
   &__nav {
-    height: 5rem;
+    grid-row: nav_start / nav_end;
   }
 
   &__main {
-    height: 100%;
+    grid-row: main_start / main_end;
   }
 }
