@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 // set and remove event listener on DOM element
-const useEventLisener = (eventName, handler, element = window) => {
+const useEventLisener = (eventName, handler, element) => {
   // reference for handler function
   const savedHandler = useRef();
 

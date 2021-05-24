@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import usePanning from "../../hooks/usePanning";
-import useEventLisener from "../../hooks/useEventListener";
+import useZooming from "../../hooks/useZooming";
+import useEventListener from "../../hooks/useEventListener";
 
 import { itemTypes } from "../../util/documentParser";
 import Group from "../items/group/group";
@@ -48,40 +49,47 @@ const useDrawer = (pipeNetwork) => {
   });
 };
 
-// Manipulate viewbox position and dimmension attribute state with mouse wheel event
-const useZooming = (zoomRatio = 0.2) => {
-  //redux hooks
-  const dimmension = useSelector((state) => state.viewbox.dimmension);
-  const dispatch = useDispatch();
+const useMousePosition = (element) => {
+  const [mousePosition, setMousePosition] = useState({ x: null, y: null });
 
-  useEffect(() => console.log(dimmension));
-
-  return {
-    ...dimmension,
-    handlers: {},
+  const handler = (e) => {
+    setMousePosition((prevState) => {
+      return {
+        ...prevState,
+        x: e.offsetX,
+        y: e.offsetY,
+      };
+    });
   };
+  useEventListener("mousemove", handler, element);
+
+  return mousePosition;
 };
 
 const Canvas = (props) => {
+  const canvasRef = useRef();
   const items = useDrawer(props.pipeNetwork);
-  const { position, handlers: panHandlers } = usePanning();
-  const { dimmension, handlers: zoomHandlers } = useZooming();
+  const mousePosition = useMousePosition(canvasRef.current);
+  const { handlers: panHandlers } = usePanning();
+  const { handlers: zoomHandlers } = useZooming(mousePosition);
 
-  let viewBox = null;
-  if (position)
-    viewBox = `${position.x} ${position.y} ${dimmension.width} ${dimmension.height}`;
+  const position = useSelector((state) => state.canvas.position);
+  const dimmension = useSelector((state) => state.canvas.dimmension);
 
   return (
     <svg
-      viewBox={viewBox}
+      ref={canvasRef}
       className="canvas"
-      overflow="auto"
+      overflow="hidden"
       onMouseDown={panHandlers.handleMouseDown}
       onMouseMove={panHandlers.handleMouseMove}
       onMouseUp={panHandlers.handleMouseUp}
-      onWheel={() => console.log("wheeling")}
+      onWheel={zoomHandlers.handleOnWheel}
     >
-      <Group>
+      <Group translate={{ x: 100, y: 20 }}>
+        <text x="600" y="200">
+          Position: {mousePosition.x} / {mousePosition.y}
+        </text>
         <circle cx={0} cy={0} r={100} />
         <rect x={550} y={320} width={100} height={100} />
         {items}

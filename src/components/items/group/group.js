@@ -1,6 +1,7 @@
 import React from "react";
 
 const Group = (props) => {
-  return <g>{props.children}</g>;
+  const translate = `translate(${props.translate.x}, ${props.translate.y})`;
+  return <g transform={translate}>{props.children}</g>;
 };
 export default React.memo(Group);

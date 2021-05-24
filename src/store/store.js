@@ -1,10 +1,10 @@
 import { combineReducers, createStore } from "redux";
 import projectReducer from "./projectReducer";
-import viewboxReducer from "./viewboxReducer";
+import canvasReducer from "./canvasReducer";
 
 const rootReducer = combineReducers({
   project: projectReducer,
-  viewbox: viewboxReducer,
+  canvas: canvasReducer,
 });
 
 const store = createStore(

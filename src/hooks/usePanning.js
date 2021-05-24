@@ -1,12 +1,12 @@
 import { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setViewboxPosition } from "../store/actions";
+import { setCanvasPosition } from "../store/actions";
 
-// Manipulate viewBox position attribute state with mouse events
+// Manipulate canvas position attribute state with mouse events
 const usePanning = () => {
   // redux hooks
-  const position = useSelector((state) => state.viewbox.position);
+  const position = useSelector((state) => state.canvas.position);
   const dispatch = useDispatch();
 
   // referenco to previous position
@@ -32,22 +32,22 @@ const usePanning = () => {
   };
 
   // on mouse move handler
-  // update viewbox position state only when left key is pressed
+  // update canvas position state only when left key is pressed
   const handleMouseMove = (e) => {
     if (!isPanning) return;
     const deltaX = e.clientX - mouseStart.x;
     const deltaY = e.clientY - mouseStart.y;
     dispatch(
-      setViewboxPosition({
-        x: prevPositionRef.current.x + deltaX,
-        y: prevPositionRef.current.y + deltaY,
+      setCanvasPosition({
+        x: prevPositionRef.current.x - deltaX,
+        y: prevPositionRef.current.y - deltaY,
       })
     );
   };
 
   // on mouse key up handler
   // set is drawing
-  // update previous viewbox position on finish
+  // update previous canvas position on finish
   const handleMouseUp = () => {
     setIsPanning(false);
     prevPositionRef.current = position;
