@@ -11,6 +11,7 @@ import Line from "../items/line/line";
 import Polyline from "../items/polyline/polyline";
 import Text from "../items/text/text";
 import { useDispatch, useSelector } from "react-redux";
+import Viewbox from "../viewbox/viewbox";
 
 const itemCreator = (item) => {
   switch (item.type) {
@@ -74,7 +75,7 @@ const Canvas = (props) => {
   const { handlers: zoomHandlers } = useZooming(mousePosition);
 
   const position = useSelector((state) => state.canvas.position);
-  const dimmension = useSelector((state) => state.canvas.dimmension);
+  const scale = useSelector((state) => state.canvas.scale);
 
   return (
     <svg
@@ -84,16 +85,16 @@ const Canvas = (props) => {
       onMouseDown={panHandlers.handleMouseDown}
       onMouseMove={panHandlers.handleMouseMove}
       onMouseUp={panHandlers.handleMouseUp}
-      onWheel={zoomHandlers.handleOnWheel}
+      onWheel={zoomHandlers.handleWheel}
     >
-      <Group translate={{ x: 100, y: 20 }}>
+      <Viewbox translate={position} scale={scale}>
         <text x="600" y="200">
           Position: {mousePosition.x} / {mousePosition.y}
         </text>
         <circle cx={0} cy={0} r={100} />
         <rect x={550} y={320} width={100} height={100} />
         {items}
-      </Group>
+      </Viewbox>
     </svg>
   );
 };

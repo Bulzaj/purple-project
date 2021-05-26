@@ -1,18 +1,11 @@
-import {
-  SET_CANVAS,
-  SET_CANVAS_DIMMENSION,
-  SET_CANVAS_POSITION,
-} from "./actions";
+import { SET_CANVAS, SET_CANVAS_POSITION, SET_CANVAS_SCALE } from "./actions";
 
 const initState = {
   position: {
     x: 0,
     y: 0,
   },
-  dimmension: {
-    width: 800,
-    height: 800,
-  },
+  scale: 1,
 };
 
 const canvasReducer = (state = initState, action) => {
@@ -27,7 +20,7 @@ const canvasReducer = (state = initState, action) => {
         ...state,
         ...action.payload,
       };
-    case SET_CANVAS_DIMMENSION:
+    case SET_CANVAS_SCALE:
       return {
         ...state,
         ...action.payload,

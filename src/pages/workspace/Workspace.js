@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import Canvas from "../../components/canvas/Canvas";
 import Bar from "../../components/bar/bar";
@@ -7,8 +7,6 @@ import Select from "../../components/select/select";
 
 const Workspace = () => {
   const project = useSelector((state) => state.project);
-  const position = useSelector((state) => state.canvas.position);
-  const dimmension = useSelector((state) => state.canvas.dimmension);
 
   return (
     <div className="workspace">
