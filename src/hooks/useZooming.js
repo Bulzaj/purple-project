@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCanvas } from "../store/actions";
 
 // Manipulate canvas position and scale attribute state with mouse wheel event
-const useZooming = (mousePosition, factor = 1.1) => {
+const useZooming = (factor = 1.1) => {
   // redux hooks
   const position = useSelector((state) => state.canvas.position);
   const scale = useSelector((state) => state.canvas.scale);
@@ -10,6 +10,10 @@ const useZooming = (mousePosition, factor = 1.1) => {
 
   // on wheel handler
   const handleWheel = (e) => {
+    const mousePosition = {
+      x: e.nativeEvent.offsetX,
+      y: e.nativeEvent.offsetY,
+    };
     const newScale = e.deltaY > 0 ? scale * factor : scale / factor;
     const newTX =
       mousePosition.x - ((mousePosition.x - position.x) * newScale) / scale;
