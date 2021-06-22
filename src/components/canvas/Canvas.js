@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import useDrawer from "../../hooks/useDrawer";
 import usePanning from "../../hooks/usePanning";
@@ -8,9 +8,14 @@ import { useSelector } from "react-redux";
 import Viewbox from "../viewbox/viewbox";
 
 const Canvas = (props) => {
-  const items = useDrawer(props.pipeNetwork);
+  const drawer = useDrawer();
+  const [items, setItems] = useState([]);
   const { handlers: panHandlers } = usePanning();
   const { handlers: zoomHandlers } = useZooming();
+
+  useEffect(() => {
+    setItems(drawer(props.pipeNetwork));
+  }, [props.pipeNetwork]);
 
   const position = useSelector((state) => state.canvas.position);
   const scale = useSelector((state) => state.canvas.scale);
