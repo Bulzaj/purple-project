@@ -5,6 +5,11 @@ import Line from "../components/items/line/line";
 import Polyline from "../components/items/polyline/polyline";
 import Text from "../components/items/text/text";
 
+/**
+ * Creates an item component of the appropriate type
+ * @param {*} item
+ * @returns Pipeline item
+ */
 const itemCreator = (item) => {
   switch (item.type) {
     case itemTypes.OUTER_CIRCLE:
@@ -36,10 +41,14 @@ const itemCreator = (item) => {
   }
 };
 
-const useDrawer = (pipeNetwork) => {
+const drawPipeNetwork = (pipeNetwork) => {
   return pipeNetwork.layers.map((layer) => {
     return <Group key={layer.id}>{layer.items.map(itemCreator)}</Group>;
   });
+};
+
+const useDrawer = () => {
+  return drawPipeNetwork;
 };
 
 export default useDrawer;
