@@ -6,6 +6,15 @@ import BarItem from "../../components/bar/bar-item/bar-item";
 import BarTab from "../../components/bar/bar-tab/bar-tab";
 import Select from "../../components/select/select";
 
+const renderLayerTabs = (layers) => {
+  return layers.map((layer) => {
+    return (
+      <BarTab key={layer.id} label={layer.name} disable={layer.items.length} />
+    );
+  });
+};
+
+// TODO: create pipenetworks selector
 const Workspace = () => {
   const project = useSelector((state) => state.project);
 
@@ -29,8 +38,9 @@ const Workspace = () => {
         </div>
         <div className="workspace__bottom-bar">
           <Bar align="row" justify="start" scrollableX>
+            {renderLayerTabs(project.pipeNetworks[0].layers)}
             {/* test tabs */}
-            <BarTab label="test 2" />
+            {/* <BarTab label="test 2" />
             <BarTab label="test 3" />
             <BarTab label="test 1sdfsdfdsfs " />
             <BarTab label="test 4" />
@@ -39,7 +49,7 @@ const Workspace = () => {
             <BarTab label="test 7" />
             <BarTab label="test 8" />
             <BarTab label="test 9" />
-            <BarTab label="test 10" />
+            <BarTab label="test 10" /> */}
           </Bar>
         </div>
       </div>
