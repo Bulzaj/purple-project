@@ -29,7 +29,7 @@ function App() {
       <div className="app">
         <div className="app__layout">
           <nav className="app__nav">
-            <Bar align="row">
+            <Bar align="row" justify="space-between">
               <BarItem>
                 <h1>Purple Project</h1>
               </BarItem>

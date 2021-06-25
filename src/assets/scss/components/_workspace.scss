@@ -5,7 +5,9 @@
     height: inherit;
     display: grid;
     grid-template-columns: [canvas-start] 1fr [canvas-end right-bar-start] 25rem [right-bar-end];
-    grid-template-rows: 1fr;
+    grid-template-rows:
+      [canvas-start] 1fr [canvas-end bottom-bar-start] min-content
+      [bottom-bar-end];
   }
 
   &__canvas {
@@ -17,6 +19,14 @@
   &__right-bar {
     grid-column-start: right-bar-start;
     grid-column-end: right-bar-end;
-    grid-row: 1 / -1;
+    grid-row-start: canvas-start;
+    grid-row-end: canvas-end;
+  }
+
+  &__bottom-bar {
+    grid-column-start: canvas-start;
+    grid-column-end: right-bar-end;
+    grid-row-start: bottom-bar-start;
+    grid-row-end: bottom-bar-end;
   }
 }

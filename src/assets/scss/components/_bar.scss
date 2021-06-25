@@ -7,18 +7,46 @@
   &--row {
     @include background-grey-light;
     flex-direction: row;
-    justify-content: space-between;
   }
 
   &--column {
     @include background-grey;
     flex-direction: column;
-    justify-content: flex-start;
 
     .bar__item {
       width: 100%;
       padding: 2rem 2rem;
     }
+  }
+
+  &--start {
+    justify-content: start;
+  }
+
+  &--space-between {
+    justify-content: space-between;
+  }
+
+  &--space-around {
+    justify-content: space-around;
+  }
+
+  &--scrollable {
+    overflow: scroll;
+  }
+
+  &--scrollable-x {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  &--scrollable-y {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  &--wrappable {
+    flex-wrap: wrap;
   }
 
   &__item {
@@ -53,6 +81,32 @@
       background: $color-blue;
       left: 0;
       width: 100%;
+    }
+  }
+
+  &__tab {
+    padding: 0 2.2rem;
+    margin-left: -2%;
+    margin-top: 0.3rem;
+    cursor: pointer;
+    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+
+    background-color: $color-grey;
+    transition: all 0.3s;
+
+    &--disable {
+      cursor: not-allowed;
+      color: $color-grey-light;
+    }
+
+    &--active {
+      background-color: $color-blue;
+    }
+
+    &:hover {
+      padding: 0 3rem;
+      z-index: 50;
+      background-color: $color-blue;
     }
   }
 }
