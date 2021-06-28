@@ -4,6 +4,7 @@ import Circle from "../components/items/circle/Circle";
 import Line from "../components/items/line/line";
 import Polyline from "../components/items/polyline/polyline";
 import Text from "../components/items/text/text";
+import { useRef } from "react";
 
 /**
  * Creates an item component of the appropriate type
@@ -43,12 +44,16 @@ const itemCreator = (item) => {
 
 const drawPipeNetwork = (pipeNetwork) => {
   return pipeNetwork.layers.map((layer) => {
-    return <Group key={layer.id}>{layer.items.map(itemCreator)}</Group>;
+    return (
+      <Group id={layer.id} key={layer.id}>
+        {layer.items.map(itemCreator)}
+      </Group>
+    );
   });
 };
 
-const useDrawer = () => {
+const usePipeNetworkDrawer = () => {
   return drawPipeNetwork;
 };
 
-export default useDrawer;
+export default usePipeNetworkDrawer;

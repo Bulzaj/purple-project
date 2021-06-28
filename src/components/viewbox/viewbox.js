@@ -19,7 +19,9 @@ const scale = (scale) => {
 
 const Viewbox = (props) => {
   return (
-    <g transform={transform(props.translate, props.scale)}>{props.children}</g>
+    <g id="group-root" transform={transform(props.translate, props.scale)}>
+      {props.children}
+    </g>
   );
 };
 

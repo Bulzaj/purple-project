@@ -4,19 +4,17 @@ import Canvas from "../../components/canvas/Canvas";
 import Bar from "../../components/bar/bar";
 import BarItem from "../../components/bar/bar-item/bar-item";
 import BarTab from "../../components/bar/bar-tab/bar-tab";
+
 import Select from "../../components/select/select";
 
-const renderLayerTabs = (layers) => {
-  return layers.map((layer) => {
-    return (
-      <BarTab key={layer.id} label={layer.name} disable={layer.items.length} />
-    );
-  });
-};
+import useLayerTabsDrawer from "../../hooks/useLayerTabsDrawer";
 
 // TODO: create pipenetworks selector
+// TODO: render spinner when project is loading
 const Workspace = () => {
   const project = useSelector((state) => state.project);
+
+  const layerTabsDrawer = useLayerTabsDrawer();
 
   return (
     <div className="workspace">
@@ -38,18 +36,8 @@ const Workspace = () => {
         </div>
         <div className="workspace__bottom-bar">
           <Bar align="row" justify="start" scrollableX>
-            {renderLayerTabs(project.pipeNetworks[0].layers)}
-            {/* test tabs */}
-            {/* <BarTab label="test 2" />
-            <BarTab label="test 3" />
-            <BarTab label="test 1sdfsdfdsfs " />
-            <BarTab label="test 4" />
-            <BarTab label="test 5" />
-            <BarTab label="test 6" />
-            <BarTab label="test 7" />
-            <BarTab label="test 8" />
-            <BarTab label="test 9" />
-            <BarTab label="test 10" /> */}
+            <BarTab label="root"></BarTab>
+            {layerTabsDrawer(project.pipeNetworks[0].layers)}
           </Bar>
         </div>
       </div>
